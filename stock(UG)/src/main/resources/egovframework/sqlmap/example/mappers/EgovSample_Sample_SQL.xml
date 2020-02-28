@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
+
+	<resultMap id="sample" type="egovframework.example.sample.service.SampleVO">
+		<result property="itemId" column="item_id"/>
+		<result property="itemName" column="item_name"/>
+		<result property="priceOpen" column="price_open"/>
+		<result property="priceHigh" column="price_high"/>
+		<result property="priceLow" column="price_low"/>
+		<result property="priceClose" column="price_close"/>
+		<result property="dealDate" column="deal_date"/>
+		<result property="priceAvg5" column="price_avg5"/>
+		<result property="priceAvg10" column="price_avg10"/>
+		<result property="priceAvg20" column="price_avg20"/>
+		<result property="priceAvg60" column="price_avg60"/>
+		<result property="volumeAvg5" column="volume_avg5"/>
+		<result property="volumeAvg20" column="volume_avg20"/>
+		<result property="volumeAvg60" column="volume_avg60"/>
+		<result property="volumeAvg120" column="volume_avg120"/>
+		<result property="PPC" column="PPC"/>
+		<result property="PD" column="PD"/>
+		<result property="FR" column="FR"/>
+	</resultMap>
+		<!-- <resultMap id="select" type="egovframework.example.sample.service.SampleVO">
+		<result property="itemId" column="item_id"/>
+		<result property="itemName" column="item_name"/>
+		<result property="priceOpen" column="price_open"/>
+		<result property="priceHigh" column="price_high"/>
+		<result property="priceLow" column="price_low"/>
+		<result property="priceClose" column="price_close"/>
+		<result property="dealDate" column="deal_date"/>
+		<result property="PPC" column="PPC"/>
+		<result property="PD" column="PD"/>
+		<result property="FR" column="FR"/>
+	</resultMap> -->
+	
+	
+
+	<insert id="insertSample" parameterType="SampleVO">
+
+			INSERT INTO SAMPLE
+				( ID
+				  , NAME
+				  , DESCRIPTION
+				  , USE_YN
+				  , REG_USER )
+			VALUES ( #{id}
+				  , #{name}
+				  , #{description}
+				  , #{useYn}
+				  , #{regUser} )
+
+	</insert>
+
+	<update id="updateSample">
+
+			UPDATE SAMPLE
+			SET ID=#{id}
+				, NAME=#{name}
+				, DESCRIPTION=#{description}
+				, USE_YN=#{useYn}
+				  WHERE ID=#{id}
+
+	</update>
+
+	<delete id="deleteSample">
+
+			DELETE FROM SAMPLE
+			WHERE ID=#{id}
+
+	</delete>
+
+	<select id="selectSample" resultMap="sample">
+
+		<!-- SELECT 
+		item_id,
+              volume
+		FROM item_price 
+  		WHERE item_id = #{itemId}
+	 	AND date_format(deal_date,'%Y-%m') 
+		BETWEEN date_format(DATE_SUB('20191202',INTERVAL 2 MONTH), '%Y-%m') 
+	 	AND date_format('20191202', '%Y-%m')
+   		ORDER BY deal_date DESC; -->
+
+			SELECT
+				item_id
+				,deal_date
+			FROM 
+				item_price
+			WHERE 1=1
+			AND	item_id=#{itemId}
+			<choose>
+				<when test="dealDate != null and dealDate !=''">
+					AND	deal_date LIKE '%' #{dealDate} '%'
+				</when>
+				<otherwise>
+	              AND   deal_date = '20200131'
+	            </otherwise>
+			</choose>
+
+	</select>
+	
+	<select id="getChart" resultMap="sample">
+	
+		SELECT 
+			item_id, 
+			volume, 
+			deal_date, 
+			price_close, 
+			DATE_FORMAT(deal_date, '%Y')AS YEAR, 
+			DATE_FORMAT(deal_date, '%m')AS MONTH,
+			DATE_FORMAT(deal_date, '%d')AS DAY,
+			price_avg5,
+			price_avg10,
+			price_avg20, 
+			price_avg60, 
+			price_avg_120,
+			volume,
+			volume_avg20,
+			volume_avg60,
+			volume_avg120 
+		FROM 
+			item_price 
+		WHERE
+			item_id = #{itemId}
+			AND date_format(deal_date,'%Y-%m-%d')
+		         BETWEEN date_format(DATE_ADD(#{dealDate},INTERVAL -3 month), '%Y-%m-%d')
+		    AND date_format(#{dealDate},'%Y-%m-%d')
+		    <!-- <if test="calender == 'ccc'">
+		    	AND date_format(deal_date,'%Y-%m-%d')
+		         BETWEEN date_format(DATE_ADD(#{dealDate},INTERVAL 1 month), '%Y-%m-%d')
+		    AND date_format(#{dealDate},'%Y-%m-%d')
+        	
+		    </if> -->
+		ORDER BY YEAR,MONTH,DAY ASC
+	</select>
+ 
+	<select id="selectSampleList" parameterType="searchVO"  resultMap="sample">
+			SELECT item_id,
+			   item_name,
+			   deal_date,
+			   price_open,
+			   price_high,
+			   price_low,
+			   price_close,
+			   volume,
+			   PPC,
+			   PD,
+  			   ROUND(((price_close-PPC) / PPC *100),2) as FR 
+  			   FROM( SELECT 
+					   A.item_id,
+					   A.item_name,
+					   B.deal_date,
+					   B.price_open,
+					   B.price_high,
+					   B.price_low,
+					   B.price_close,
+					   B.volume,
+					   lag(B.price_close,1) over(partition by A.item_id order by B.deal_date) as PPC,
+		  			   B.price_close-lag(B.price_close,1) over(partition by A.item_id order by B.deal_date) as PD
+					FROM 
+						item A
+					INNER JOIN 
+						item_price B
+					ON 
+						A.item_id = B.item_id
+				) T1
+				WHERE 1=1
+					<choose>
+						<when test="searchRegDate != null and searchRegDate !=''">
+							AND	deal_date LIKE '%' #{searchRegDate} '%'
+						</when>
+						<otherwise>
+			              AND   deal_date = '20200131'
+			            </otherwise>
+					</choose>
+					<choose>
+						<when test='searchCode != null and searchCode != ""'>
+			            	AND (item_id LIKE '%' #{searchCode} '%' OR item_name LIKE '%' #{searchCode} '%')
+			            </when>
+			        </choose>
+					ORDER BY deal_date, item_id ASC
+					LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 
+	</select>
+
+	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">
+			
+			SELECT COUNT(*) totcnt
+			FROM 
+				item A
+			INNER JOIN 
+				item_price B
+			ON 
+				A.item_id = B.item_id
+			WHERE 1=1
+			<choose>
+				<when test="searchRegDate != null and searchRegDate !=''">
+					AND	B.deal_date LIKE '%' #{searchRegDate} '%'
+				</when>
+				<otherwise>
+	              AND   B.deal_date = '20200131'
+	            </otherwise>
+			</choose>
+			<choose>
+				<when test='searchCode != null and searchCode != ""'>
+            		AND (A.item_id LIKE '%' #{searchCode} '%' OR A.item_name LIKE '%' #{searchCode} '%')
+            	</when>
+           	</choose>
+	</select>
+
+</mapper>
