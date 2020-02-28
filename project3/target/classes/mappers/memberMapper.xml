@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.project.mappers.memberMapper">
+ 
+	<select id="selectMember" resultType="memberVO">
+        SELECT * FROM test
+    </select>
+    <insert id="insertMember" parameterType="kr.co.project.model.MemberInfoVO">
+    	INSERT INTO MEMBERINFO(
+    			ID
+	    		,USERTYPE
+		        ,BONG
+		        ,BUN
+		        ,STAFF
+		        ,NAME
+		        ,ENG_NAME
+		        ,USERID
+				,EMAIL
+				,EMAILCHK1
+				,EMAILCHK2
+		        ,BIRTH
+		        ,BIRTHCHK
+		        ,PHONE
+		        ,PHONECHK
+		        ,JOB
+		        ,JOBCHK
+		        ,JUSO1
+		        ,JUSO2
+				,JUSOCHK
+		        ,PROFILE
+		        ,PROFILECHK
+		        ,CONTENT
+		        ,AGREE
+		        ,WRITEDAY
+    	) VALUES (
+    			#{id},
+    			#{usertype},
+		        #{bong},
+		        #{bun},
+		        #{staff},
+		        #{name},
+		        #{eng_name},
+		        #{userid},
+				#{email},
+				#{emailchk1},
+				#{emailchk2},
+		        #{birth},
+		        #{birthchk},
+		        #{phone},
+		        #{phonechk},
+		        #{job},
+		        #{jobchk},
+		        #{juso1},
+		        #{juso2},
+				#{jusochk},
+		        #{profile},
+		        #{profilechk},
+		        #{content},
+		        #{agree},
+		        now()
+    	)
+    </insert>
+ 	
+
+    <select id="listAll" resultType="memberinfoVO" parameterType="map">
+    	
+    	SELECT
+    			 ID
+	    		,USERTYPE
+		        ,BONG
+		        ,BUN
+		        ,STAFF
+		        ,NAME
+		        ,ENG_NAME
+		        ,USERID
+				,EMAIL
+				,EMAILCHK1
+				,EMAILCHK2
+		        ,BIRTH
+		        ,BIRTHCHK
+		        ,PHONE
+		        ,PHONECHK
+		        ,JOB
+		        ,JOBCHK
+		        ,JUSO1
+		        ,JUSO2
+				,JUSOCHK
+		        ,PROFILE
+		        ,PROFILECHK
+		        ,CONTENT
+		        ,AGREE
+		        ,WRITEDAY
+		   FROM
+		   		MEMBERINFO
+		   WHERE 
+		        ID > 0
+	<if test="usertype != null">
+ 		<if test="usertype == '0'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 		<if test="usertype == '1'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '2'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '3'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '4'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '5'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '6'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '7'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 	</if>
+ 	<if test="bong != null">
+ 		<if test="bong == '0'.toString()">
+ 			AND BONG LIKE  CONCAT('%', #{bong}, '%')
+ 		</if>
+ 		<if test="bong == '1'.toString()">
+ 			AND BONG LIKE  CONCAT('%', #{bong}, '%')
+ 		</if>
+ 		<if test="bong == null">
+ 			AND BONG LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 	</if>   
+ 	<if test="bun != null">
+ 		<if test="bun == '0'.toString()">
+ 			AND BUN LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 		<if test="bun == '1'.toString()">
+ 			AND BUN LIKE  CONCAT('%', #{bun}, '%')
+ 		</if>
+ 		<if test="bun == '2'.toString()">
+ 			AND BUN LIKE  CONCAT('%', #{bun}, '%')
+ 		</if>
+ 	</if>   
+ 	<if test="text != null">
+ 		<if test="text == 'n'.toString()">
+ 			AND NAME LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == 'im'.toString()">
+ 			AND (USERID LIKE  CONCAT('%', #{text}, '%')
+ 					OR EMAIL LIKE  CONCAT('%', #{text}, '%'))
+ 		</if>
+ 		<if test="text == 'p'.toString()">
+ 			AND PHONE LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == 's'.toString()">
+ 			AND STAFF LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == null">
+ 			AND NAME LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 	</if>   
+		   ORDER BY ID DESC
+		   LIMIT #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="countBoardList" resultType="Integer" parameterType="map">
+	   
+	        SELECT
+	            COUNT(*)
+	        FROM
+	            memberinfo
+	        WHERE
+	            id > 0
+	    	<if test="usertype != null">
+ 		<if test="usertype == '0'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 		<if test="usertype == '1'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '2'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '3'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '4'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '5'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '6'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 		<if test="usertype == '7'.toString()">
+ 			AND USERTYPE LIKE  CONCAT('%', #{usertype}, '%')
+ 		</if>
+ 	</if>
+ 	<if test="bong != null">
+ 		<if test="bong == '0'.toString()">
+ 			AND BONG LIKE  CONCAT('%', #{bong}, '%')
+ 		</if>
+ 		<if test="bong == '1'.toString()">
+ 			AND BONG LIKE  CONCAT('%', #{bong}, '%')
+ 		</if>
+ 		<if test="bong == null">
+ 			AND BONG LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 	</if>   
+ 	<if test="bun != null">
+ 		<if test="bun == '0'.toString()">
+ 			AND BUN LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 		<if test="bun == '1'.toString()">
+ 			AND BUN LIKE  CONCAT('%', #{bun}, '%')
+ 		</if>
+ 		<if test="bun == '2'.toString()">
+ 			AND BUN LIKE  CONCAT('%', #{bun}, '%')
+ 		</if>
+ 	</if>   
+ 	<if test="text != null">
+ 		<if test="text == 'n'.toString()">
+ 			AND NAME LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == 'im'.toString()">
+ 			AND (USERID LIKE  CONCAT('%', #{text}, '%')
+ 					OR EMAIL LIKE  CONCAT('%', #{text}, '%'))
+ 		</if>
+ 		<if test="text == 'p'.toString()">
+ 			AND PHONE LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == 's'.toString()">
+ 			AND STAFF LIKE  CONCAT('%', #{text}, '%')
+ 		</if>
+ 		<if test="text == null">
+ 			AND NAME LIKE  CONCAT('%', '', '%')
+ 		</if>
+ 	</if> 
+	</select>
+
+    
+    <select id="update" resultType="memberinfoVO">
+    	SELECT
+    			 ID
+	    		,USERTYPE
+		        ,BONG
+		        ,BUN
+		        ,STAFF
+		        ,NAME
+		        ,ENG_NAME
+		        ,USERID
+				,EMAIL
+				,EMAILCHK1
+				,EMAILCHK2
+		        ,BIRTH
+		        ,BIRTHCHK
+		        ,PHONE
+		        ,PHONECHK
+		        ,JOB
+		        ,JOBCHK
+		        ,JUSO1
+		        ,JUSO2
+				,JUSOCHK
+		        ,PROFILE
+		        ,PROFILECHK
+		        ,CONTENT
+		        ,AGREE
+		        ,WRITEDAY
+		   FROM
+		   		MEMBERINFO
+		   WHERE ID=#{id}
+    </select>
+    <update id="update_ok" parameterType="memberinfoVO">
+    	UPDATE MEMBERINFO SET 
+    		 usertype = #{usertype}
+	        ,bong = #{bong}
+	        ,bun = #{bun}
+	        ,staff = #{staff}
+	        ,name = #{name}
+	        ,eng_name = #{eng_name}
+	        ,userid = #{userid}
+			,email = #{email}
+			,emailchk1 = #{emailchk1}
+			,emailchk2 = #{emailchk2}
+	        ,birth = #{birth}
+	        ,birthchk = #{birthchk}
+	        ,phone = #{phone}
+	        ,phonechk = #{phonechk}
+	        ,job = #{job}
+	        ,jobchk = #{jobchk}
+	        ,juso1 = #{juso1}
+	        ,juso2 = #{juso2}
+			,jusochk = #{jusochk}
+	        ,profile = #{profile}
+	        ,profilechk = #{profilechk}
+	        ,content = #{content}
+	        ,agree = #{agree}
+	        ,writeday = now()
+	        WHERE id = #{id}
+    </update>
+    <select id="selectOne" parameterType="int" resultType="memberinfoVO">
+    	<![CDATA[
+    	SELECT
+    			 id
+	    		,USERTYPE
+		        ,BONG
+		        ,BUN
+		        ,STAFF
+		        ,NAME
+		        ,ENG_NAME
+		        ,USERID
+				,EMAIL
+				,EMAILCHK1
+				,EMAILCHK2
+		        ,BIRTH
+		        ,BIRTHCHK
+		        ,PHONE
+		        ,PHONECHK
+		        ,JOB
+		        ,JOBCHK
+		        ,JUSO1
+		        ,JUSO2
+				,JUSOCHK
+		        ,PROFILE
+		        ,PROFILECHK
+		        ,CONTENT
+		        ,AGREE
+		        ,WRITEDAY
+		    FROM
+		    	memberinfo
+		    WHERE id=#{id}
+		    ]]>
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
