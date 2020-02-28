@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+
+    <formset>
+        <form name="sampleVO">
+			<field property="usertype" depends="required">
+        		<arg0 key="title.sample.usertype" />
+			</field>
+			<field property="bong" depends="required">
+        		<arg0 key="title.sample.bong" />
+			</field>
+			<field property="bun" depends="required">
+        		<arg0 key="title.sample.bun" />
+			</field>
+			<field property="staff" depends="required">
+        		<arg0 key="title.sample.staff" />
+			</field>
+			<field property="name" depends="required">
+        		<arg0 key="title.sample.name" />
+			</field>
+			<field property="eng_name" depends="required">
+        		<arg0 key="title.sample.eng_name" />
+			</field>
+			<field property="email" depends="required">
+        		<arg0 key="title.sample.email" />
+			</field>
+			<field property="userid" depends="required">
+        		<arg0 key="title.sample.userid" />
+			</field>
+			<field property="birth" depends="required">
+        		<arg0 key="title.sample.birth" />
+			</field>
+			<field property="phone" depends="required">
+        		<arg0 key="title.sample.phone" />
+			</field>
+			<field property="job" depends="required">
+        		<arg0 key="title.sample.job" />
+			</field>
+			<field property="juso1" depends="required">
+        		<arg0 key="title.sample.juso1" />
+			</field>
+			<field property="juso2" depends="required">
+        		<arg0 key="title.sample.juso2" />
+			</field>
+			<field property="profile" depends="required">
+        		<arg0 key="title.sample.profile" />
+			</field>
+			<field property="content" depends="required">
+        		<arg0 key="title.sample.content" />
+			</field>
+        </form>
+    </formset>
+
+</form-validation>
