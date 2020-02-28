@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
+
+	<resultMap id="sample" type="egovframework.example.sample.service.SampleVO">
+		<result property="id" column="id"/>
+		<result property="usertype" column="usertype"/>
+		<result property="bong" column="bong"/>
+		<result property="bun" column="bun"/>
+		<result property="staff" column="staff"/>
+		<result property="name" column="name"/>
+		<result property="eng_name" column="eng_name"/>
+		<result property="userid" column="userid"/>
+		<result property="email" column="email"/>
+		<result property="emailchk1" column="emailchk1"/>
+		<result property="emailchk2" column="emailchk2"/>
+		<result property="birth" column="birth"/>
+		<result property="birthchk" column="birthchk"/>
+		<result property="phone" column="phone"/>
+		<result property="phonechk" column="phonechk"/>
+		<result property="job" column="job"/>
+		<result property="jobchk" column="jobchk"/>
+		<result property="juso1" column="juso1"/>
+		<result property="juso2" column="juso2"/>
+		<result property="jusochk" column="jusochk"/>
+		<result property="profile" column="profile"/>
+		<result property="profilechk" column="profilechk"/>		
+		<result property="content" column="content"/>
+		<result property="agree" column="agree"/>
+		<result property="writeday" column="writeday"/>
+		<result property="gdsImg" column="gdsImg"/>
+		<result property="gdsThumbImg" column="gdsThumbImg"/>	
+	</resultMap>
+
+	<insert id="insertSample" parameterType="SampleVO">
+
+			insert into sample(
+				id
+	    		,usertype
+		        ,bong
+		        ,bun
+		        ,staff
+		        ,name
+		        ,eng_name
+		        ,userid
+				,email
+				,emailchk1
+				,emailchk2
+		        ,birth
+		        ,birthchk
+		        ,phone
+		        ,phonechk
+		        ,job
+		        ,jobchk
+		        ,juso1
+		        ,juso2
+				,jusochk
+		        ,profile
+		        ,profilechk
+		        ,content
+		        ,agree
+		        ,writeday
+		      	,gdsImg
+    			,gdsThumbImg
+		        
+		     )values(
+		        #{id},
+    			#{usertype},
+		        #{bong},
+		        #{bun},
+		        #{staff},
+		        #{name},
+		        #{eng_name},
+		        #{userid},
+				#{email},
+				#{emailchk1},
+				#{emailchk2},
+		        #{birth},
+		        #{birthchk},
+		        #{phone},
+		        #{phonechk},
+		        #{job},
+		        #{jobchk},
+		        #{juso1},
+		        #{juso2},
+				#{jusochk},
+		        #{profile},
+		        #{profilechk},
+		        #{content},
+		        #{agree},
+		        now(),
+		        #{gdsImg},
+		        #{gdsThumbImg}
+		        )
+
+	</insert>
+
+	<update id="updateSample">
+
+			update sample set 
+	    		 usertype = #{usertype}
+		        ,bong = #{bong}
+		        ,bun = #{bun}
+		        ,staff = #{staff}
+		        ,name = #{name}
+		        ,eng_name = #{eng_name}
+		        ,userid = #{userid}
+				,email = #{email}
+				,emailchk1 = #{emailchk1}
+				,emailchk2 = #{emailchk2}
+		        ,birth = #{birth}
+		        ,birthchk = #{birthchk}
+		        ,phone = #{phone}
+		        ,phonechk = #{phonechk}
+		        ,job = #{job}
+		        ,jobchk = #{jobchk}
+		        ,juso1 = #{juso1}
+		        ,juso2 = #{juso2}
+				,jusochk = #{jusochk}
+		        ,profile = #{profile}
+		        ,profilechk = #{profilechk}
+		        ,content = #{content}
+		        ,agree = #{agree}
+		        ,writeday = now()
+	        where id = #{id}
+
+	</update>
+
+	<delete id="deleteSample">
+
+			DELETE FROM SAMPLE
+			WHERE ID=#{id}
+
+	</delete>
+
+	<select id="selectSample" resultMap="sample">
+
+			select 
+				id
+	    		,usertype
+		        ,bong
+		        ,bun
+		        ,staff
+		        ,name
+		        ,eng_name
+		        ,userid
+				,email
+				,emailchk1
+				,emailchk2
+		        ,birth
+		        ,birthchk
+		        ,phone
+		        ,phonechk
+		        ,job
+		        ,jobchk
+		        ,juso1
+		        ,juso2
+				,jusochk
+		        ,profile
+		        ,profilechk
+		        ,content
+		        ,agree
+		        ,writeday
+		      	,gdsImg
+    			,gdsThumbImg
+    		from
+	    		sample
+	    	where id=#{id}
+
+	</select>
+
+	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
+
+			select
+				id
+	    		,usertype
+		        ,bong
+		        ,bun
+		        ,staff
+		        ,name
+		        ,eng_name
+		        ,userid
+				,email
+				,emailchk1
+				,emailchk2
+		        ,birth
+		        ,birthchk
+		        ,phone
+		        ,phonechk
+		        ,job
+		        ,jobchk
+		        ,juso1
+		        ,juso2
+				,jusochk
+		        ,profile
+		        ,profilechk
+		        ,content
+		        ,agree
+		        ,writeday
+		      	,gdsImg
+    			,gdsThumbImg
+			from sample
+			where 1=1
+			
+			order by id desc
+	</select>
+
+	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">
+
+			SELECT COUNT(*) TOTCNT
+			FROM SAMPLE
+			WHERE 1=1
+			
+	</select>
+
+</mapper>

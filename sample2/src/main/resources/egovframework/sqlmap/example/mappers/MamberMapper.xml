@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.MamberMapper">
+
+	<insert id="insert" parameterType="egovframework.example.sample.service.MamberVO">
+		INSERT INTO FIRTABLE(
+			ID,
+			USEDAY,
+			USED,
+			USECOST,
+			WRITEDAY,
+			GDSIMG,
+			GDSTHUMBIMG
+		) VALUES (
+			#{id},
+			#{useday},
+			#{used},
+			#{usecost},
+			now(),
+			#{gdsimg},
+			#{gdsthumbimg}
+		)
+		
+	</insert>
+	<insert id="insert2" parameterType="egovframework.example.sample.service.MamberVO2">
+		INSERT INTO SETABLE(
+			ID,
+			PROCESSED,
+			CONTENT
+		) VALUES (
+			#{id},
+			#{processed},
+			#{content}
+		)			
+	</insert>
+	<select id="list" resultType="egovframework.example.sample.service.MamberVO">
+		select
+			firtable.id,
+			firtable.useday,
+			firtable.used,
+			firtable.usecost,
+			firtable.writeday,
+			firtable.gdsimg,
+			firtable.gdsthumbimg,
+			setable.id,
+            setable.processed,
+            setable.proday,
+            setable.appcost,
+            setable.content
+		from
+			firtable left join setable on firtable.id = setable.id
+		where
+			1=1
+			<if test='useday != null and useday !="" '>
+				and firtable.useday like '%' #{useday} '%'
+			</if>
+			<if test='used != null and used !="0" '>
+				and firtable.used like concat('%', #{used}, '%') 
+			</if>
+			<if test='processed != null and processed !="2" '>
+				and setable.processed like concat('%', #{processed},'%') 
+			</if>  
+				order by firtable.useday desc
+	</select>
+	<select id="selectOne" resultType="egovframework.example.sample.service.MamberVO" parameterType="int">
+		select
+			firtable.id,
+			firtable.useday,
+			firtable.used,
+			firtable.usecost,
+			firtable.writeday,
+			firtable.gdsimg,
+			firtable.gdsthumbimg,
+            setable.processed,
+            setable.proday,
+            setable.appcost,
+            setable.content
+		from
+			firtable left join setable on firtable.id = setable.id
+		where 
+			firtable.id=#{id} and setable.id=#{id}
+	</select>
+	<delete id="delete2" parameterType="int">
+		delete from setable where id=#{id}
+	</delete>
+	<delete id="delete1" parameterType="int">
+		delete from firtable where id=#{id}
+	</delete>
+	<update id="store" parameterType="egovframework.example.sample.service.MamberVO">
+		update 
+			firtable 
+		set
+			useday=#{useday},
+			used=#{used},
+			usecost=#{usecost},
+			writeday=now(),
+			gdsimg=#{gdsimg},
+			gdsthumbimg=#{gdsthumbimg}
+		where
+			id=#{id}	
+	</update>
+	<update id="update" parameterType="egovframework.example.sample.service.MamberVO">
+		update 
+			firtable a inner join setable b 
+			on a.id=b.id 
+		set
+			b.processed='1',
+			b.proday=now(),
+			b.appcost=#{appcost},
+			b.content=#{content}
+		where
+			b.id=#{id}
+	</update>
+	<select id="listCount" resultType="Integer" parameterType="egovframework.example.sample.service.SearchCriteria">
+		select 
+			count(*)
+		from
+			firtable left join setable on firtable.id = setable.id
+		where
+			1=1
+		<if test='useday != null and useday !="" '>
+			and firtable.useday like '%' #{useday} '%'
+		</if>
+		<if test='used != null and used !="0" '>
+			and firtable.used like concat('%', #{used}, '%') 
+		</if>
+		<if test='processed != null and processed !="2" '>
+			and setable.processed like concat('%', #{processed},'%') 
+		</if> 
+		
+	</select>
+	
+	
+  <select id="selectRow" resultType="egovframework.example.sample.service.MamberVO">
+  	   select
+			firtable.id,
+			firtable.useday,
+			firtable.used,
+			firtable.usecost,
+			firtable.writeday,
+			firtable.gdsimg,
+			firtable.gdsthumbimg,
+			setable.id,
+            setable.processed,
+            setable.proday,
+            setable.appcost,
+            setable.content
+		from
+			firtable left join setable on firtable.id = setable.id
+		where
+			1=1
+			<if test='useday != null and useday !="" '>
+				and firtable.useday like '%' #{useday} '%'
+			</if>
+			<if test='used != null and used !="0" '>
+				and firtable.used like concat('%', #{used}, '%') 
+			</if>
+			<if test='processed != null and processed !="2" '>
+				and setable.processed like concat('%', #{processed},'%') 
+			</if> 
+		
+			order by firtable.useday desc	
+  </select>
+	<!-- 데이터 삽입 egovMap -->
+	<insert id="insertExcel" parameterType="egovMap">
+
+		INSERT INTO FIRTABLE(
+			ID,
+			USEDAY,
+			USED,
+			USECOST,
+			WRITEDAY
+		) VALUES
+		<foreach collection="excelContent" item="item" separator=",">
+		(
+			#{id},
+			#{item.B},
+			#{item.C},
+			#{item.D},
+			now()
+		)
+		</foreach>
+	</insert>
+  
+  	<insert id="excelinsert" parameterType="egovframework.example.sample.service.MamberVO2">
+		INSERT INTO SETABLE(
+			ID,
+			PROCESSED,
+			CONTENT
+		) VALUES (
+			#{id},
+			'0',
+			#{content}
+		)			
+	</insert>
+  
+</mapper>
+
+
+
+
