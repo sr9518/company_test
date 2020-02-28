@@ -1,0 +1,50 @@
+eGovFrame Web Project
+
+ajax 설정
+
+1. pom.xml
+
+<!-- json 관련 라이브러리  -->
+<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+<dependency>
+   <groupId>com.googlecode.json-simple</groupId>
+   <artifactId>json-simple</artifactId>
+   <version>1.1.1</version>
+</dependency>
+ 
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+<dependency>
+   <groupId>com.fasterxml.jackson.core</groupId>
+   <artifactId>jackson-databind</artifactId>
+   <version>2.9.9</version>
+</dependency>
+
+2. 설정후 dispatcher-servlet.xml
+
+<mvc:annotation-driven>
+   <mvc:message-converters>
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+   </mvc:message-converters>
+</mvc:annotation-driven>   
+
+3. Controller 
+ajax 사용시 어노테이션 @ResponseBody 선언할것
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
