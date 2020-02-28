@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.test4.mappers.memberMapper">
+
+	<select id="selectMember" resultType="memberVO">
+		SELECT ID, PW ,NAME FROM TEST2
+	</select>
+	
+	<insert id="insertMember" parameterType="kr.co.test4.dto.WriteVO">
+		INSERT INTO TEST(KOR_NAME,ENG_NAME,HAN_NAME,JUMIN1,JUMIN2,FILE,YEAR,MONTH,DAY,YANG,SUNG,WEDDING,YUNCHA,EAT,HOPEWORK,MONEY,WORKTYPE,JUSO1,JUSO2,PHONE1,PHONE2,PHONE3,EMAIL,TEC,SOJU,WRITEDAY) 
+		VALUES(#{kor_name}, #{eng_name}, #{han_name}, #{jumin1}, #{jumin2}, #{file}, #{year}, #{month}, #{day}, #{yang}, #{sung}, #{wedding}, #{yuncha}, #{eat}, #{hopework}, #{money}, #{worktype}, #{juso1}, #{juso2}, #{phone1}, #{phone2}, #{phone3}, #{email}, #{tec}, #{soju}, now() )		
+	</insert>
+	
+		<select id="selectInfo" resultType="writeVO">
+			SELECT *
+			FROM TEST
+			WHERE ID > 0
+			
+			<if test="searchOption != null">
+				<if test="searchOption == 'n'.toString()">
+					AND kor_name LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchOption == 's'.toString()">
+					AND sung LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchOption == 't'.toString()">
+					AND tec LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchOption == 'all'.toString()">
+					AND (kor_name LIKE CONCAT('%', #{keyword}, '%')
+						OR sung LIKE CONCAT('%', #{keyword}, '%')
+						OR tec LIKE CONCAT('%', #{keyword}, '%'))
+				</if>
+			</if>
+			
+			ORDER BY ID DESC, WRITEDAY DESC
+		</select>
+		<select id="countArticle" resultType="int">
+			SELECT COUNT(*) FROM TEST	
+		</select>
+	
+	
+	<delete id="deleteInfo">
+		DELETE FROM TEST WHERE ID=#{id}
+	</delete>
+	<select id="info_update" resultType="writeVO">
+		SELECT * FROM TEST WHERE ID=#{id}
+	</select>
+	<update id="update_ok" parameterType="writeVO">
+		UPDATE TEST SET kor_name = #{kor_name}, eng_name = #{eng_name}, han_name = #{han_name}, jumin1 = #{jumin1}, jumin2 = #{jumin2}, file = #{file}, year = #{year}, month = #{month}, day = #{day}, yang = #{yang}, sung = #{sung}, wedding = #{wedding}, yuncha = #{yuncha}, eat = #{eat}, hopework = #{hopework}, money = #{money}, worktype = #{worktype}, juso1 = #{juso1}, juso2 = #{juso2}, phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}, email = #{email}, tec = #{tec}, soju = #{soju}, writeday = now() WHERE id=#{id}
+	</update>
+	<select id="listCriteria" resultType="writeVO">
+	<![CDATA[
+		select
+		    *
+		from
+		    test
+		where id > 0
+		order by id desc, writeday desc
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+
+	
+	
+	
+	
+	
+</mapper>
