@@ -27,3 +27,8 @@ https://5dol.tistory.com/36?category=88615
 
 dataTable grid
 https://kutar37.tistory.com/entry/Grid-라이브러리Datatables-사용법예제
+
+eclipse 설치 
+=> 실행시키기 위해서 jre , jdk 필요 (https://www.oracle.com/java/technologies/javase-jre8-downloads.html)
+=> Apache Tomcat 설치 후 환경변수 설정(https://steps-for-developer.tistory.com/entry/WAS%EC%84%9C%EB%B2%84-Apache-Tomcat%EC%84%A4%EC%B9%98)
+=> DB설치(Mysql) (https://dev.mysql.com/downloads/mysql)
