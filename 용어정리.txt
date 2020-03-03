@@ -1,7 +1,8 @@
-JEUS - À¥¼­¹ö( = Tomcat , ±¹³»¿¡¼­ °³¹ßÇÑ ¼­¹ö)
-ÇÁ·¹ÀÓ¿öÅ© - ¶óÀÌºê·¯¸®¿¡ ÀÏÁ¾ÀÇ »À´ëÃ³·³ '¼³°èÀÇ ±âº» Æ²' ÀÌ Ãß°¡µÈ ÇüÅÂ´Ù
-ÇÁ·¹ÀÓ¿öÅ©( ³»°¡ ²ø·Á°¡´Â °Í), ¶óÀÌºê·¯¸®( ³»°¡ ºÎ¸£´Â °Í)
+JEUS - ì›¹ì„œë²„( = Tomcat , êµ­ë‚´ì—ì„œ ê°œë°œí•œ ì„œë²„)
+í”„ë ˆìž„ì›Œí¬ - ë¼ì´ë¸ŒëŸ¬ë¦¬ì— ì¼ì¢…ì˜ ë¼ˆëŒ€ì²˜ëŸ¼ 'ì„¤ê³„ì˜ ê¸°ë³¸ í‹€' ì´ ì¶”ê°€ëœ í˜•íƒœë‹¤
+í”„ë ˆìž„ì›Œí¬( ë‚´ê°€ ëŒë ¤ê°€ëŠ” ê²ƒ), ë¼ì´ë¸ŒëŸ¬ë¦¬( ë‚´ê°€ ë¶€ë¥´ëŠ” ê²ƒ)
 mybatis( http://blog.naver.com/PostView.nhn?blogId=yysvip&logNo=220178612535&parentCategoryNo=&categoryNo=9&viewDate=&isShowPopularPosts=true&from=search )
+Transaction ( https://javafactory.tistory.com/1396 )
 
 
 
