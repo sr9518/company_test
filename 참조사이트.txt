@@ -33,3 +33,8 @@ eclipse 설치
 사용자 변수( jdk, tomcat ) 추가 , 시스템 변수 path ( jdk, tomcat ) 추가
 => Apache Tomcat 설치 후 환경변수 설정(https://steps-for-developer.tistory.com/entry/WAS%EC%84%9C%EB%B2%84-Apache-Tomcat%EC%84%A4%EC%B9%98)
 => DB설치(Mysql) (https://dev.mysql.com/downloads/mysql)
+
+sourcetree github - 연동방법 ( https://github.com/sejong-interface/Interface_Manual/wiki/Git-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0%231---Git,-Sourcetree-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B3%84%EC%A0%95%EC%97%B0%EA%B2%B0 )
+- 목적지 경로를 eclipse-workspace로 설정해서 Pull , Push가 가능하게 설정해준다
+- eclipse에서 import -> Maven -> Existing Maven Projects -> clone 생성한 경로 설정
+- 원하는 project 선택 후 Finish하면 import가 된다
