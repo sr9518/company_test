@@ -39,3 +39,6 @@ sourcetree github - 연동방법 ( https://github.com/sejong-interface/Interface
 - 목적지 경로를 eclipse-workspace로 설정해서 Pull , Push가 가능하게 설정해준다
 - eclipse에서 import -> Maven -> Existing Maven Projects -> clone 생성한 경로 설정
 - 원하는 project 선택 후 Finish하면 import가 된다
+
+Mariadb 연동
+https://m.blog.naver.com/PostView.nhn?blogId=racoon_z&logNo=220699015275&proxyReferer=https%3A%2F%2Fwww.google.com%2F
