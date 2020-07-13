@@ -1,4 +1,4 @@
-SHA512 암호화 Class
+String searchCreditorName = URLEncoder.encode(params.get("searchCreditorName").toString(),"UTF-8");SHA512 암호화 Class
 Controller에서 SHA512Util class import 설정후
 -> String newPassword = SHA512Util.getSHA512(pwd); // 이렇게 사용
 
@@ -28,6 +28,7 @@ public String noticeDetail(ModelMap model, HttpServletRequest request) {
   HashMap resultMap = intra.noticeDetail(params);
   // textarea 값은 decodestr으로 HashMap으로 담는다.
   resultMap.put("content", StringUtil.decodestr((String)resultMap.get("content")));
+
   
   /* 비밀번호 관리 */
   // 쿼리 결과가 1이 아니라면 Integer형으로 값을 변수에 저장(""을 사용하여 null이 아닐때로 사용할수있지만 쿼리결과가 null이면 에러 발생)
@@ -35,3 +36,30 @@ public String noticeDetail(ModelMap model, HttpServletRequest request) {
   
   return "/intra/notice/noticeView";
 }
+
+// ajax 사용시 Controller
+@RequestMapping("/intra/manage/companyCheck.do")
+public ModelAndView companyCheckAjax(ModelMap model, HttpServletRequest request) throws Exception {
+
+  ModelAndView mav = new ModelAndView(new MapXmlView());
+  HttpSession session = request.getSession();
+  Map<String,Object> params = HttpUtil.getRequestMap(request);
+  params.put("mcSeq", Integer.parseInt(session.getAttribute("mcSeq").toString()));
+  params.put("createId", (session.getAttribute("id").toString()));
+  params.put("createDate", DateUtil.getToday("yyyyMMddHHmmss"));
+  String page = params.get("page").toString();
+  String searchCreditorName = URLEncoder.encode(params.get("searchCreditorName").toString(),"UTF-8");
+  String searchAddress = URLEncoder.encode(params.get("searchAddress").toString(),"UTF-8");
+  
+  HashMap<String,Object> companyCheck = pfService.companyCheckAjax(params);
+  // Map<String,String> resultMap = new HashMap<String,String>();
+  Map resultMap = new HashMap();
+  resultMap.put("result", companyCheck.get("result"));
+  resultMap.put("result2", companyCheck.get("result2"));
+  mav.addObject("map", resultMap);
+  return mav;
+}
+
+
+
+
