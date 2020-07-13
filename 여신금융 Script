@@ -10,15 +10,38 @@ function fn_loginCallback(xml) {
     location.href = "/admin/main/pfMainList.do";
   }
 }
+// 팝업창(부모창)으로 값을 넘길때 opener.document를 사용하여 값이 전달한다.
+function fn_view(address,creditorName) {
+  if(address == -1) {
+    $("#address", opener.document).prop("type","text");
+    $("#creditorName", opener.document).val($("#creditorName").val());
+    $("#selectCity", opener.document).css("display","inline");
+    $("#creditorName", opener.document).attr("readonly",false);
+  }
+}
 
-
+// 팝업창에 스크롤 기능 추가하기
+window.onload = function() {
+  if((parseInt(document.getElementById("tbl_wrap").offsetHeight) - parseInt(window.document.body.clientHeight)) > 20) {
+    window.document.body.scroll = "auto";
+    window.resizeBy(18,0);
+  }
+}
 
 JSP 정리
 // 핸드폰 번호 데이터 불러올때 split() 함수 사용해서 '-'로 값을 나눈다
 <input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[1]}"/>> -
 <input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[2]}"/>>
-
-
+// c태그 사용법, onclick 함수에 여러값들을 담는것
+<c:choose>
+  <c:when test="${rs.supervisionYn eq 'Y'}">
+    <c:choose>
+      <c:when test="${rs.pf001ActiveYn eq 'Y'}">
+        <a href="#" id="eventA" onclick="goPage({'reptCd' : 'PF001','reptSeq' : '${reptSeq}',pfSeq' : '${rs.seq}'})"> img </a>
+      </c:when>
+    </c:choose>
+  </c:when>
+</c:choose>
 
 
 
