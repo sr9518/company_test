@@ -55,6 +55,7 @@ if(pwd.search(/\s/) != -1) {
   return false;
 }
 // 이메일 정규식
+// 참고 사이트 : https://carami.tistory.com/m/40
 var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 var email = $('#email').val();
 
