@@ -67,6 +67,7 @@ if(exptext.test(email) == false) {
 
 
 JSP 정리
+
 // 핸드폰 번호 데이터 불러올때 split() 함수 사용해서 '-'로 값을 나눈다
 <input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[1]}"/>> -
 <input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[2]}"/>>
@@ -81,5 +82,7 @@ JSP 정리
   </c:when>
 </c:choose>
 
-
+// 참고 사이트 : https://meaownworld.tistory.com/m/123
+<c:when test="${name eq '이름'> 반대 -> <c:when test="${name ne '이름'>
+<c:when test="${empty name}"> 반대 -> <c:when test="${not empty name}">
 
