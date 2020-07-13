@@ -28,4 +28,10 @@ public String noticeDetail(ModelMap model, HttpServletRequest request) {
   HashMap resultMap = intra.noticeDetail(params);
   // textarea 값은 decodestr으로 HashMap으로 담는다.
   resultMap.put("content", StringUtil.decodestr((String)resultMap.get("content")));
+  
+  /* 비밀번호 관리 */
+  // 쿼리 결과가 1이 아니라면 Integer형으로 값을 변수에 저장(""을 사용하여 null이 아닐때로 사용할수있지만 쿼리결과가 null이면 에러 발생)
+  passErrCnt = Integer.parseInt(StringUtil.nvl(pfService.loginPassErrCnt(params, request), "1"));
+  
+  return "/intra/notice/noticeView";
 }
