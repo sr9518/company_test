@@ -28,6 +28,43 @@ window.onload = function() {
   }
 }
 
+// radio 클릭시 checked 변경
+function conCheck(val) {
+  if(val == 1) {
+    $("input:radio[name='consortiumCode']:radio[value='1']").prop('checked',true);
+    $("input:radio[name='consortiumCode']:radio[value='2']").prop('checked',false);
+  }else{
+    $("input:radio[name='consortiumCode']:radio[value='1']").prop('checked',false);
+    $("input:radio[name='consortiumCode']:radio[value='2']").prop('checked',true);
+  }
+}
+
+// 비밀번호 유효성 검사
+var pwd = $('#passwd').val();
+if(!/^(?=.*[a-zA-Z])(?=.*?[0-9]).{10,20}$/.test(pwd)) {
+  alert("비밀번호는 영문과 숫자를 포함하여 10자 이상이어야 합니다.");
+  return false;
+}
+// 반복된 문자 호가인
+if(/(\w)\1\1\1/.test(pwd)) {
+  alert("비밀번호에 동일한 문자를 과도하게 연속해서 사용할 수 없습니다.");
+  return false;
+}
+if(pwd.search(/\s/) != -1) {
+  alert("비밀번호를 공백없이 입력해주세요.");
+  return false;
+}
+// 이메일 정규식
+var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+var email = $('#email').val();
+
+if(exptext.test(email) == false) {
+  alert("이메일을 올바르게 입력해 주세요.");
+  $('#email').focus();
+  return false;
+}
+
+
 JSP 정리
 // 핸드폰 번호 데이터 불러올때 split() 함수 사용해서 '-'로 값을 나눈다
 <input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[1]}"/>> -
