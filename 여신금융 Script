@@ -4,6 +4,11 @@ function fn_loginCallback(xml) {
   // ajax로 받은 값이 Integer 일경우 parseInt를 붙여서 형변환을 해준다.
   var loginCnt = $(xml).find("loginCnt").text();
   var passErrCnt = parseInt($(xml).find("passErrCnt").text();
+  if(loginCnt == "0") {
+    window.location.href = returnUrl;
+  }else{
+    location.href = "/admin/main/pfMainList.do";
+  }
 }
 
 
