@@ -42,3 +42,12 @@ sourcetree github - 연동방법 ( https://github.com/sejong-interface/Interface
 
 Mariadb 연동
 https://m.blog.naver.com/PostView.nhn?blogId=racoon_z&logNo=220699015275&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+
+파일 업로드(정상작동 아직 못해봄 2020.07.13)
+https://daydreamer-92.tistory.com/42
+
+
+
+
+
+
