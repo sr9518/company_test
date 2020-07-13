@@ -1,4 +1,4 @@
-String searchCreditorName = URLEncoder.encode(params.get("searchCreditorName").toString(),"UTF-8");SHA512 암호화 Class
+SHA512 암호화 Class
 Controller에서 SHA512Util class import 설정후
 -> String newPassword = SHA512Util.getSHA512(pwd); // 이렇게 사용
 
@@ -28,13 +28,22 @@ public String noticeDetail(ModelMap model, HttpServletRequest request) {
   HashMap resultMap = intra.noticeDetail(params);
   // textarea 값은 decodestr으로 HashMap으로 담는다.
   resultMap.put("content", StringUtil.decodestr((String)resultMap.get("content")));
-
   
+  if(!StringUtil.nvl(params.get("pf001"), "").equals("")) {
+    model.addAttribute("rptSeq", params.get("pf001"));
+  }
+  
+  model.addAttribute("today", DateUtil.getToday("yyyyMM"));
+  model.addAttribute("thisYear", DateUtil.getToday("yyyy"));
   /* 비밀번호 관리 */
   // 쿼리 결과가 1이 아니라면 Integer형으로 값을 변수에 저장(""을 사용하여 null이 아닐때로 사용할수있지만 쿼리결과가 null이면 에러 발생)
   passErrCnt = Integer.parseInt(StringUtil.nvl(pfService.loginPassErrCnt(params, request), "1"));
   
-  return "/intra/notice/noticeView";
+  String page = params.get("page").toString();
+  String searchCreditorName = URLEncoder.encode(params.get("searchCreditorName").toString(),"UTF-8");
+  String searchAddress = URLEncoder.encode(params.get("searchAddress").toString(),"UTF-8");
+  
+  return "redirect:/intra/manage/pfNoApprovalList.do?page="+page+"&searchCreditorName="+searchCreditorName+"&searchAddress="+searchAddress;
 }
 
 // ajax 사용시 Controller
@@ -47,9 +56,6 @@ public ModelAndView companyCheckAjax(ModelMap model, HttpServletRequest request)
   params.put("mcSeq", Integer.parseInt(session.getAttribute("mcSeq").toString()));
   params.put("createId", (session.getAttribute("id").toString()));
   params.put("createDate", DateUtil.getToday("yyyyMMddHHmmss"));
-  String page = params.get("page").toString();
-  String searchCreditorName = URLEncoder.encode(params.get("searchCreditorName").toString(),"UTF-8");
-  String searchAddress = URLEncoder.encode(params.get("searchAddress").toString(),"UTF-8");
   
   HashMap<String,Object> companyCheck = pfService.companyCheckAjax(params);
   // Map<String,String> resultMap = new HashMap<String,String>();
