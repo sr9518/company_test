@@ -70,6 +70,6 @@ public ModelAndView companyCheckAjax(ModelMap model, HttpServletRequest request)
   return mav;
 }
 
-
+insert되는 쿼리에 @transactional 어노테이션 설정시 값이 잘못됐을때 DB저장 안되고 롤백되는 기능
 
 
