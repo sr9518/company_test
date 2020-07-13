@@ -50,6 +50,21 @@ public String noticeDetail(ModelMap model, HttpServletRequest request) {
   return "redirect:/intra/manage/pfNoApprovalList.do?page="+page+"&searchCreditorName="+searchCreditorName+"&searchAddress="+searchAddress;
 }
 
+redirect에 컬럼명에 값을 넣어 넘기는 방법도 있지만 RedirectAttributes를 사용해서 넘기는 방법도있다
+@RequestMapping(value = "origin")
+    public String origin(HttpServletRequest request, RedirectAttributes attributes) {
+        // page 값 전달은 크게 2가지 방법으로 나뉜다.
+        attributes.addAttribute("attr", "attributes1!!!");
+        // attributes.addFlashAttribute("attr", "attributes1!!!");
+        return "reditrect:reditrectPage";
+    }
+@RequestMapping(value = "redirectPage")
+    public String redirectPage(HttpServletRequest request) {
+        // 특수 기호나 한글의 encoding 도 자동으로 해준다.
+        System.out.println(request.getParameter("attr"));
+        return "showView";
+    }
+
 // ajax 사용시 Controller
 @RequestMapping("/intra/manage/companyCheck.do")
 public ModelAndView companyCheckAjax(ModelMap model, HttpServletRequest request) throws Exception {
