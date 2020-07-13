@@ -1,0 +1,19 @@
+Script 정리
+Controller ajax mav 사용한 값을 Script로 받을때
+function fn_loginCallback(xml) {
+  // ajax로 받은 값이 Integer 일경우 parseInt를 붙여서 형변환을 해준다.
+  var loginCnt = $(xml).find("loginCnt").text();
+  var passErrCnt = parseInt($(xml).find("passErrCnt").text();
+}
+
+
+
+JSP 정리
+// 핸드폰 번호 데이터 불러올때 split() 함수 사용해서 '-'로 값을 나눈다
+<input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[1]}"/>> -
+<input type="text" value=<c:out value="${fn:split(resultMap.tel,'-')[2]}"/>>
+
+
+
+
+
