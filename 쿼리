@@ -1,0 +1,3 @@
+암호화 (Maria DB 기준)
+INSERT INTO tb_mbr_mas01(passwd) value(hex(AES_ENCRYPT('rewq135@531',sha2('passwd',512)))); 암호화 쿼리
+SELECT aes_decrypt(unhex(passwd),SHA2('passwd',512)) from tb_mbr_mas01; 복호화 쿼리
